@@ -47,7 +47,7 @@ app.post('/create', (request, response) => {
 
 });
 
-app.get('/getUser', (request, response) => {
+app.get('/getUserList', (request, response) => {
     db.query("SELECT * FROM userlist", (err, result) => {if (err)
     {
         console.log(err)
@@ -80,6 +80,19 @@ app.post('/checkCredentials', (request, response) => {
     }
 })
 })
+
+app.post('/getUser', (request, response) => {
+    //Die Variable aus dem Front-End holen und in neuer Variable in Back-End speichern
+    const savedActualAccount = request.body.actualAccountKey
+    console.log("savedAccount ist: " + savedActualAccount)
+    db.query("SELECT * FROM userlist where name = ?", [savedActualAccount], (err, result) => {if (err)
+        {
+            console.log(err)
+        }else{
+            response.send(result);
+        }
+    })
+    })
 
 app.delete('/delete/:id', (request, response) => {
     console.log("Empfange ID: "+ request.params.id)
