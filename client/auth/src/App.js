@@ -1,6 +1,4 @@
 import './App.css';
-import {useState} from "react";
-import Axios from "axios";
 import {
   BrowserRouter as Router,
   Route, Switch,
@@ -8,6 +6,7 @@ import {
 import Register from './components/Register';
 import Home from './components/Home';
 import Login from './components/Login';
+import Update from './components/Update';
 
 function App() {
 
@@ -24,6 +23,9 @@ function App() {
     </Route>
     <Route path="/login">
         <Login />
+    </Route>
+    <Route path="/update">
+        <Update />
     </Route>
       </Switch>
     </Router>

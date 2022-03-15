@@ -10,8 +10,6 @@ function Register() {
   const [age,setAge] = useState(18);
   const [password,setPassword] = useState("");
 
-  const [userData, setUserData] = useState([]);
-
   function handleSelectChange(event) {
     setEmployer(event.target.value);
 }
@@ -32,14 +30,6 @@ function Register() {
 
     }).then(() => {console.log("success")})    
   }
-// der Key im Key-Value-Pair wird im post befehl überegben und der Wert in einer neuen Variable gespeichert
-
-    const getUserList = () => {
-      Axios.get('http://localhost:3001/getUser').then((response) => {
-      console.log("Front End: getbookedRooms: response Data: "+ response.data.toString())
-      setUserData(response.data)
-      });
-    }
 
 /*    const deleteReservation = (id) => {
       console.log("Front End: deleteReservation with ID: "+id)
@@ -49,8 +39,6 @@ function Register() {
   return (
     <>
     <h1>Authentifizierung</h1>
-    {/*Wenn eingeloggt, Namen anzeigen, sonst "Gast"*/}
-    <h2>Hallo {userData.name}</h2>
  
     <div className="App">
       <div className="Form">

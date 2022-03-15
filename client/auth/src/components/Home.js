@@ -9,7 +9,7 @@ function Home() {
 // der Key im Key-Value-Pair wird im post befehl überegben und der Wert in einer neuen Variable gespeichert
 
     const getUserList = () => {
-      Axios.get('http://localhost:3001/getUser').then((response) => {
+      Axios.get('http://localhost:3001/getUserList').then((response) => {
       console.log("Front End: getbookedRooms: response Data: "+ response.data.toString())
       setUserData(response.data)
       });
