@@ -34,6 +34,11 @@ function Home() {
           <p></p>
       {/*<button className="FormButton" onClick={getbookedRooms}>Reservierungen anzeigen</button>*/}
       <br/>
+      <Link to="/login">
+       <button className="FormButton" type="button">
+          Anmelden!
+       </button>
+      </Link>
       <Link to="/register">
        <button className="FormButton" type="button">
           Register!

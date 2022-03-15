@@ -67,7 +67,7 @@ function Register() {
        <h3>Password</h3>
        <input className="Inputfield" type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
         
-        <button className="FormButton" onClick={() => addUser()}>Registrieren</button>
+        <button className="FormButton" onClick={() => addUser()}>Registrierung abschicken</button>
         <Link to="/">
        <button className="FormButton2" type="button">
           Hauptseite!
