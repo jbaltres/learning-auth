@@ -3,9 +3,9 @@ import {useState} from "react";
 import Axios from "axios";
 import {
   BrowserRouter as Router,
-  Route, Switch
+  Route, Switch,
 } from "react-router-dom";
-import Private from './components/Private';
+import Register from './components/Register';
 import Home from './components/Home';
 
 function App() {
@@ -15,8 +15,8 @@ function App() {
     <>
     <Router>
       <Switch>
-      <Route path="/privateroute">
-        <Private />
+      <Route path="/register">
+        <Register />
     </Route>
     <Route path="/home">
         <Home />

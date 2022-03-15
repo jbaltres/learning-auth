@@ -24,9 +24,10 @@ app.post('/create', (request, response) => {
     const savedName = request.body.nameKey
     const savedemployer = request.body.selectedEmployerKey
     const savedAge = request.body.ageKey
+    const savedPassword = request.body.passwordKey
 
-        db.query("INSERT INTO userlist (name, employer, age) VALUES (?,?,?)" ,
-        [savedName, savedemployer, savedAge],
+        db.query("INSERT INTO userlist (name, employer, age, password) VALUES (?,?,?,?)" ,
+        [savedName, savedemployer, savedAge, savedPassword],
         
         (err, result) =>{if (err)
             {

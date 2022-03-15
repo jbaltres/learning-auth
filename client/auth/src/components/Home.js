@@ -1,5 +1,6 @@
 import {useState} from "react";
 import Axios from "axios";
+import {Link} from "react-router-dom";
 
 function Home() {
 
@@ -33,7 +34,11 @@ function Home() {
           <p></p>
       {/*<button className="FormButton" onClick={getbookedRooms}>Reservierungen anzeigen</button>*/}
       <br/>
-      
+      <Link to="/register">
+       <button className="FormButton" type="button">
+          Register!
+       </button>
+      </Link>
       
       {userData.map((value, key) => {
         return(
@@ -42,6 +47,7 @@ function Home() {
         <div className="ListEntry" key={key}>Name: {value.name}</div>
         <div className="ListEntry">Arbeitgeber: {value.employer}</div>
         <div className="ListEntry">Alter: {value.age}</div>
+        <div className="ListEntry">PW: {value.password}</div>
         
         {/*<button className="FormButton2" onClick={() => deleteReservation(value.id)}>Reservierung stornieren</button>*/}
         </div>

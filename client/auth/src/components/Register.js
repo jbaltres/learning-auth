@@ -1,12 +1,14 @@
 import {useState} from "react";
 import Axios from "axios";
+import {Link} from "react-router-dom";
 
 
-function Private() {
+function Register() {
 
   const [name,setName] = useState("");
   const [employer,setEmployer] = useState("BVA");
-  const [age,setAge] = useState(18); 
+  const [age,setAge] = useState(18);
+  const [password,setPassword] = useState("");
 
   const [userData, setUserData] = useState([]);
 
@@ -19,13 +21,14 @@ function Private() {
     // Die URL muss also die Serveradresse und den Serverport beinhalten.
     // Der ObjectBody enthält KeyValue Pairs
 
-    console.log("Front End: addUser: " + name +" "+employer+" " + age)
+    console.log("Front End: addUser: " + name +" "+employer+" " + age +" " + password)
 
     Axios.post('http://localhost:3001/create', 
     {
       nameKey: name, 
       selectedEmployerKey: employer,
       ageKey: age,
+      passwordKey: password,
 
     }).then(() => {console.log("success")})    
   }
@@ -61,8 +64,20 @@ function Private() {
         </select>
        <h3>Alter</h3>
        <input className="Inputfield" type="text" value={age} onChange={(e) => {setAge(e.target.value)}}></input>
+       <h3>Password</h3>
+       <input className="Inputfield" type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
         
-        <button className="FormButton" onClick={() => addUser()}>User hinzufügen</button>
+        <button className="FormButton" onClick={() => addUser()}>Registrieren</button>
+        <Link to="/">
+       <button className="FormButton2" type="button">
+          Hauptseite!
+       </button>
+      </Link>
+      <Link to="/home">
+       <button className="FormButton2" type="button">
+          Home!
+       </button>
+      </Link>
       </div>
     </div>
     </>
@@ -71,4 +86,4 @@ function Private() {
     );
 }
 
-export default Private;
+export default Register;
