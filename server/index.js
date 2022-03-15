@@ -57,15 +57,26 @@ app.get('/getUser', (request, response) => {
 })
 })
 
-app.post('/getRoomsForDate', (request, response) => {
+app.post('/checkCredentials', (request, response) => {
     //Die Variable aus dem Front-End holen und in neuer Variable in Back-End speichern
-    const savedDate = request.body.dateKey
-    console.log("Show Date" + savedDate)
-    db.query("SELECT * FROM rooms where date = ?", [savedDate], (err, result) => {if (err)
-    {
+    const savedName = request.body.nameKey
+    const savedPassword = request.body.passwordKey
+    //console.log("Show Name" + savedName)
+    db.query("SELECT * FROM userlist where name = ? AND password = ?", [savedName, savedPassword], (err, result) => {if (err)
+    {        
         console.log(err)
     }else{
-        response.send(result);
+        if (result.length == 1)
+        {
+            console.log("User in Datenbank vorhanden.")
+            response.send("Success");
+        }
+        else
+        {
+            console.log("User NICHT in Datenbank vorhanden.")
+            response.send("Fail");
+        }
+        
     }
 })
 })
