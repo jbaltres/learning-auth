@@ -11,13 +11,14 @@ function Update() {
         Axios.post('http://localhost:3001/getUser', {
           actualAccountKey: actualAccount,
         }).then((response) => {
-        //setUserData(response.data)
         console.log("Front End: getSpecificUser: response Data: "+ response.data) 
         setUserData(response.data)
         setName(response.data[0].name)
+        setOldName(response.data[0].name)
         setEmployer(response.data[0].employer)
         setAge(response.data[0].age)
         setPassword(response.data[0].password)
+        
         });
     
       },[actualAccount])
@@ -35,13 +36,16 @@ function Update() {
   const [employer,setEmployer] = useState(userData[0].employer);
   const [age,setAge] = useState(userData[0].age);
   const [password,setPassword] = useState(userData[0].password);
+  const [oldName,setOldName] = useState(userData[0].name);
   
   console.log("hier ist der name " + name + " hinterlegt")
   console.log("hier ist der employer " + employer + " hinterlegt")
   console.log("hier ist der ageg " + age + " hinterlegt")
   console.log("hier ist der pw " + password + " hinterlegt")
+  console.log("hier ist der Oldname " + oldName + " hinterlegt")
 
   console.log("Der aktuelle Account ist:" + actualAccount)
+  
   
 
   function handleSelectChange(event) {
@@ -52,13 +56,15 @@ function handleSelectEmployer(event) {
     setEmployer(event.target.value);
 }
 
-
+const updateUser = () => {
+  Axios.put('http://localhost:3001/updateUser', {nameKey: name, selectedEmployerKey: employer, ageKey: age, passwordKey: password, oldNameKey: oldName})
+}
 
   return (
     <>
     <select value={actualAccount} onChange={handleSelectChange}>
             <option value="Alfresco"> Alfresco</option>
-            <option value="Ute">Ute</option>
+            <option value="Hanswurst">Ute</option>
         </select>
     <h1>Update your Site</h1>
     <h1>
@@ -111,12 +117,17 @@ function handleSelectEmployer(event) {
         </div>
         )
       })}
+            <button className="FormButton2" onClick={() => updateUser()}>User Updaten</button>
 
       <Link to="/home">
        <button className="FormButton2" type="button">
           Home!
        </button>
       </Link>
+
+
+
+
       </div>
     </div>
     </>
