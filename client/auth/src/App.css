@@ -101,3 +101,57 @@
   flex-direction: column;
   margin-top: 5px;
 }
+
+.AuthButtons {
+  height: 35px;
+  background-color: #1e3d58;
+  color: #e8eef1;
+  font-family: fantasy;
+  align-self: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 5px;
+  margin-left: 7px;
+}
+
+.AuthButtons:hover {
+  cursor: pointer;
+  background-color: bisque;
+  color: #1e3d58;
+  font-size: 1.5em;
+  padding: 5px;
+}
+
+.AuthButtonsRegisterForm {
+  height: 35px;
+  background-color: #1e3d58;
+  color: #e8eef1;
+  font-family: fantasy;
+  align-self: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 5px;
+  margin-left: 7px;
+  margin-top: 5px;
+}
+
+.Successregistration {
+  display: flex;
+  justify-content: center;
+  height: 35px;
+  width: 50%;
+  margin-bottom: 30px;
+  background-color: #057dcd;
+  color: #e8eef1;
+  font-family: fantasy;
+  align-self: center;
+  font-weight: bold;
+  padding: 7px;
+  border-radius: 10px;
+  border: solid 2px #1e3d58;
+}
+
+.Registration_Wrapper {
+  display: flex;
+  justify-content: center;
+}

@@ -50,7 +50,7 @@ function Login() {
        <input className="Inputfield" type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
         
         <button className="FormButton" onClick={() => checkCredentials()}>Anmelden</button>
-      <Link to="/home">
+      <Link to="/">
        <button className="FormButton2" type="button">
           Home!
        </button>

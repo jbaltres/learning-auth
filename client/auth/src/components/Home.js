@@ -21,30 +21,47 @@ function Home() {
     }
 */
 
+    let greeting = false;
+    let greetingName = ""
+
+    
+      if(greeting){
+        greetingName = "User"
+      }
+      else{
+        greetingName = "Gast"
+      }
+    
+
   return (
     <>
     <h1>Authentifizierung</h1>
     {/*Wenn eingeloggt, Namen anzeigen, sonst "Gast"*/}
-    <h2>Hallo {userData.name}</h2>
+    <h2>Hallo {greetingName}</h2>
  
     <div className="App">
   
-        <button className="FormButton" onClick={() => getUserList()}>User anzeigen</button>
- 
-          <p></p>
       {/*<button className="FormButton" onClick={getbookedRooms}>Reservierungen anzeigen</button>*/}
       <br/>
       <Link to="/login">
-       <button className="FormButton" type="button">
+       <button className="AuthButtons" type="button">
           Anmelden!
        </button>
       </Link>
       <Link to="/register">
-       <button className="FormButton" type="button">
+       <button className="AuthButtons" type="button">
           Register!
        </button>
       </Link>
-      
+      <p/>
+      <p/>
+      <p/>
+      <p/>
+
+      <h3>Die User anzeigen lassen:</h3>
+
+      <button className="FormButton" onClick={() => getUserList()}>User anzeigen</button>
+
       {userData.map((value, key) => {
         return(
         <div className="Card_Wrapper">  

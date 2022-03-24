@@ -1,7 +1,6 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
-
 
 function Register() {
 
@@ -9,10 +8,52 @@ function Register() {
   const [employer,setEmployer] = useState("BVA");
   const [age,setAge] = useState(18);
   const [password,setPassword] = useState("");
+  const [returnMessageValue,setReturnMessageValue] = useState(true)
+  const [userData, setUserData] = useState([]);
+  const [checkRegisterName,setCheckRegisterName] = useState(true)
+  
+  let returnMessage = ""
+  if (!returnMessageValue){
+    returnMessage = "Erfolgreich Registriert"
+  }
+
+  let checkingName = ""
+  if (!checkRegisterName){
+    checkingName = "Username schon belegt"
+  }
 
   function handleSelectChange(event) {
     setEmployer(event.target.value);
 }
+
+useEffect(() => {
+    Axios.get('http://localhost:3001/getUserList').then((response) => {
+    console.log("Front End: getbookedRooms: response Data: "+ response.data.toString())
+    setUserData(response.data)
+    });
+},[])
+
+const getUserList = () => {
+  Axios.get('http://localhost:3001/getUserList').then((response) => {
+    if (userData.some(response => response.name === name)) {
+      console.log("Diesen Wert gibt es schon")
+      setCheckRegisterName(false)
+      setTimeout(() => {
+        setCheckRegisterName(returnMessageValue => !returnMessageValue)
+      }, 5000);
+    }
+    else{
+      console.log("Namen noch nicht in der Datenbank vorhanden")
+      addUser();
+    }
+  console.log("Front End: getbookedRooms: response Data: "+ response.data.toString())
+  setUserData(response.data)
+  })
+  .then(() => console.log("Überprüfung abgeschlossen"));
+}
+
+
+
   const addUser = () => {
     // der .post Befehl bekommt zwei Atrribute zugegwiesen(url, ObjectBody). URL ist hier localhost weil 
     // der server.js sich auf dem gleichen Gerät befindet und der Port 3001 wurde in der server.js deklariert.
@@ -28,7 +69,16 @@ function Register() {
       ageKey: age,
       passwordKey: password,
 
-    }).then(() => {console.log("success")})    
+    }).then(() => {console.log("success")})
+      .then(() => setName("")) 
+      .then(() => setAge(""))
+      .then(() => setEmployer(""))
+      .then(() => setPassword(""))
+      .then(() => setReturnMessageValue(false))  
+      .then(() => setTimeout(() => {
+        setReturnMessageValue(returnMessageValue => !returnMessageValue)
+      }, 5000));   
+      
   }
 
 /*    const deleteReservation = (id) => {
@@ -38,8 +88,13 @@ function Register() {
 */
   return (
     <>
-    <h1>Authentifizierung</h1>
- 
+    <div className="Registration_Wrapper">
+      <h1>Authentifizierung</h1>
+    </div>
+    <div className="Registration_Wrapper">
+      <h2 className={returnMessage ? "Successregistration" : null }>{returnMessage}</h2>
+      <h2 className={checkingName ? "Successregistration" : null }>{checkingName}</h2>
+    </div>
     <div className="App">
       <div className="Form">
       <h3>Name</h3>
@@ -54,18 +109,20 @@ function Register() {
        <input className="Inputfield" type="text" value={age} onChange={(e) => {setAge(e.target.value)}}></input>
        <h3>Password</h3>
        <input className="Inputfield" type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
-        
-        <button className="FormButton" onClick={() => addUser()}>Registrierung abschicken</button>
+       
+        <button className="FormButton" onClick={() => getUserList()}>Registrierung abschicken</button>
+        <div> 
         <Link to="/">
-       <button className="FormButton2" type="button">
+       <button className="AuthButtonsRegisterForm" type="button">
           Hauptseite!
        </button>
       </Link>
-      <Link to="/home">
-       <button className="FormButton2" type="button">
-          Home!
+      <Link to="/login">
+       <button className="AuthButtonsRegisterForm" type="button">
+          Login!
        </button>
       </Link>
+      </div>
       </div>
     </div>
     </>
