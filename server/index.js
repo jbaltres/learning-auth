@@ -13,7 +13,7 @@ app.use(express.json());
 
 const db = mysql.createPool({
     user: 'root',
-    host: '192.168.213.112', //Das ist die IP-Adresse der virtuellen Linux-Maschine MUSS evtl. geändert werden!!!
+    host: '192.168.178.75', //Das ist die IP-Adresse der virtuellen Linux-Maschine MUSS evtl. geändert werden!!!
     password: 'alfresco123', 
     database: 'userauth'
 });
@@ -88,7 +88,8 @@ app.post('/checkCredentials', (request, response) => {
         if (result.length == 1)
         {
             console.log("User in Datenbank vorhanden.")
-            response.send("Success");
+            
+            response.send(result);
         }
         else
         {

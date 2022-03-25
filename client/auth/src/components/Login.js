@@ -1,13 +1,12 @@
 import {useState} from "react";
 import Axios from "axios";
-import {Link} from "react-router-dom";
-
+import {useHistory,Link} from "react-router-dom";
 
 function Login() {
 
   const [name,setName] = useState("");
   const [password,setPassword] = useState("");
-  const [loginState,setLoginState] = useState("");
+  
 
 
   const checkCredentials = () => {
@@ -17,20 +16,46 @@ function Login() {
           passwordKey: password
         }).then((response) => {
         setLoginState(response.data)
-        console.log("Front End: getSpecificUser: response Data: "+ response.data) 
-
+        console.log("Front End: getSpecificUser: response Data: "+ response.data)
+        console.log("THIS IS"+response.data[0].name) 
+        if (response.data[0].name === name){
+          console.log("Gut digga")
+        }
+        else{
+          console.log("Du Schwachkopf!")
+        }
+        if (response.data[0].name === name){
+        setTimeout(() => { 
+            routeTo();
+          },5000);  
+          }
+          else{
+            console.log("Es konnte nicht redirected werden!")
+          }
+        
         });
   
       }
 
-      let loginMessage = ""
-      switch (loginState){
-        case "":
+      const [loginState,setLoginState] = useState([{name: "Gast"}]);
+
+      let history = useHistory();
+
+      function routeTo() {
+        history.push("/update");
+      }
+
+
+      
+      let loginMessage = "Keine Anmeldung vorhanden"
+      switch (true){
+        case (loginState[0].name === "Gast") :
+          loginMessage = "Anmelden bitte"
           break;
-        case "Success":
+        case (loginState !== "Fail") :
           loginMessage = "Sie wurden erfolgreich eingeloggt!"
           break;
-        case "Fail":
+        case loginState === "Fail" :
           loginMessage = "Die Anmeldung ist fehlgeschlagen"
           break;
         default:
@@ -41,7 +66,10 @@ function Login() {
   return (
     <>
     <h1>Login</h1>
-    {loginMessage}
+    <div className="Greeting_Wrapper">
+    <h2 className="Greeting">Hallo {loginState[0].name == null ? "Gast" : loginState[0].name}</h2>
+    <h2 className="Greeting">{loginMessage}</h2>
+    </div>
     <div className="App">
       <div className="Form">
       <h3>Name</h3>
@@ -51,8 +79,13 @@ function Login() {
         
         <button className="FormButton" onClick={() => checkCredentials()}>Anmelden</button>
       <Link to="/">
-       <button className="FormButton2" type="button">
+       <button className="AuthButtonsRegisterForm" type="button">
           Home!
+       </button>
+      </Link>
+      <Link to="/register">
+       <button className="AuthButtonsRegisterForm" type="button">
+          Registrieren!
        </button>
       </Link>
       </div>

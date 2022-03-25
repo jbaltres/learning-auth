@@ -17,14 +17,18 @@
 .FormButton {
   height: 35px;
   width: 40%;
-  background-color: aquamarine;
+  background-color: #43b0f1;
   align-self: center;
+  border-radius: 25px 25px 9px 9px;
+  color: #e8eef1;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .FormButton2 {
   height: 35px;
   width: 75%;
-  background-color: aquamarine;
+  background-color: #e8eef1;
   align-self: center;
   margin: 15px;
   display: block;
@@ -32,7 +36,8 @@
 
 .FormButton:hover {
   cursor: pointer;
-  background-color: bisque;
+  background-color: #1e3d58;
+  color: #43b0f1;
 }
 
 .FormButton2:hover {
@@ -135,6 +140,14 @@
   margin-top: 5px;
 }
 
+.AuthButtonsRegisterForm:hover {
+  cursor: pointer;
+  background-color: bisque;
+  color: #1e3d58;
+  font-size: 1.5em;
+  padding: 5px;
+}
+
 .Successregistration {
   display: flex;
   justify-content: center;
@@ -154,4 +167,23 @@
 .Registration_Wrapper {
   display: flex;
   justify-content: center;
+}
+
+.Greeting {
+  display: flex;
+  justify-content: center;
+  height: 35px;
+  width: 50%;
+  color: #057dcd;
+  font-family: fantasy;
+  align-self: center;
+  font-weight: bold;
+  padding: 7px;
+  margin: 5px 0px;
+}
+
+.Greeting_Wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }

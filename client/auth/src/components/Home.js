@@ -24,7 +24,6 @@ function Home() {
     let greeting = false;
     let greetingName = ""
 
-    
       if(greeting){
         greetingName = "User"
       }
@@ -45,7 +44,7 @@ function Home() {
       <br/>
       <Link to="/login">
        <button className="AuthButtons" type="button">
-          Anmelden!
+          Login!
        </button>
       </Link>
       <Link to="/register">
