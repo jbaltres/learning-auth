@@ -1,6 +1,6 @@
 import {useState} from "react";
 import Axios from "axios";
-import {useHistory,Link, useParams} from "react-router-dom";
+import {useHistory,Link} from "react-router-dom";
 
 function Login() {
 
@@ -29,11 +29,13 @@ function Login() {
     
   }
 
-    let timeStamp ;
+    let timeStamp;
+    let timeInt;
 
     const generateTimeStamp = () => {
     
-    timeStamp = Date.now();
+    timeInt = Date.now();
+    timeStamp = JSON.stringify(timeInt)
 
   }  
   
@@ -52,9 +54,13 @@ function Login() {
         else{
           console.log("Du Schwachkopf!")
         }
+
         if (response.data[0].name === name){
 
           createToken();
+          localStorage.setItem("key",JSON.stringify(token));
+          console.log("Token da?: " + token)
+          localStorage.setItem("timeStamp", JSON.stringify(timeStamp));
           setTimeout(() => { 
             routeTo();
           },5000);

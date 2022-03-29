@@ -11,6 +11,17 @@ function Update() {
     console.log("URLKEY= " + URLKey)
 
     const [userData,setUserData] = useState([{name:"(Lädt Namen)", employer:"(Lädt)", age:"(Lädt Alter)", password:""}]);
+    const [name,setName] = useState(userData[0].name);
+    console.log("Die Länge des Arrays " + userData.length)
+    console.log("Der State name " + name)
+    const [employer,setEmployer] = useState(userData[0].employer);
+    const [age,setAge] = useState(userData[0].age);
+    const [password,setPassword] = useState(userData[0].password);
+    const [oldName,setOldName] = useState(userData[0].name);
+    const [token,setToken] = useState(userData[0].token);
+    const [timeStamp,setTimeStamp] = useState(userData[0].timestamp);
+    const [tokenverification, setTokenverification] = useState("");
+    console.log("TOKEN vorher: " + token)
 
     useEffect(() => {
         Axios.post('http://localhost:3001/getUser', {
@@ -23,37 +34,32 @@ function Update() {
         setEmployer(response.data[0].employer)
         setAge(response.data[0].age)
         setPassword(response.data[0].password)
-        
-        });
-    
-      },[URLKey])
+        setTimeStamp(response.data[0].timestamp)
+        setToken(response.data[0].token)
+        console.log(response.data[0].timestamp)
+        setTokenverification(JSON.parse(localStorage.getItem("key")));
+        console.log("Verification is: " + tokenverification)
+        })
 
+      },[URLKey, tokenverification])
   
   if (userData.length > 0){
     console.log(userData[0].name)
   } else{
     console.log("Noch kein Array vorhanden")
   }
-
-  const [name,setName] = useState(userData[0].name);
-  console.log("Die Länge des Arrays " + userData.length)
-  console.log("Der State name " + name)
-  const [employer,setEmployer] = useState(userData[0].employer);
-  const [age,setAge] = useState(userData[0].age);
-  const [password,setPassword] = useState(userData[0].password);
-  const [oldName,setOldName] = useState(userData[0].name);
   
+  let jsonString = JSON.stringify(userData)
+
+  console.log("Der ganze Array ist" + jsonString)
   console.log("hier ist der name " + name + " hinterlegt")
   console.log("hier ist der employer " + employer + " hinterlegt")
   console.log("hier ist der ageg " + age + " hinterlegt")
   console.log("hier ist der pw " + password + " hinterlegt")
   console.log("hier ist der Oldname " + oldName + " hinterlegt")
+  console.log("hier ist TimeStamp " + timeStamp)
+  console.log("hier ist Token " + token)
 
-  
-
-  
-
- 
 
 function handleSelectEmployer(event) {
     setEmployer(event.target.value);
@@ -63,6 +69,8 @@ const updateUser = () => {
   Axios.put('http://localhost:3001/updateUser', {nameKey: name, selectedEmployerKey: employer, ageKey: age, passwordKey: password, oldNameKey: oldName})
 }
 
+if (tokenverification === token) {
+  console.log("Token ist gültig.")
   return (
     <>
     <h1>Update your Site</h1>
@@ -130,7 +138,16 @@ const updateUser = () => {
       </div>
     </div>
     </>
-     );
+     )
+    }
+    else{
+      console.log("Token ist ungültig")
+    return (
+      <>
+      <h1>Du bist nicht Verifiziert</h1>
+      </>
+      
+    )};
 }
 
 export default Update;
