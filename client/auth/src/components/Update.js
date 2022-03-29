@@ -4,12 +4,17 @@ import {Link} from "react-router-dom";
 
 
 function Update() {
-    const [actualAccount,setActualAccount] = useState("Alfresco");
+    //const [actualAccount,setActualAccount] = useState("Alfresco");
+    let params = new URLSearchParams(document.location.search);
+    let URLKey = params.get("key");
+
+    console.log("URLKEY= " + URLKey)
+
     const [userData,setUserData] = useState([{name:"(Lädt Namen)", employer:"(Lädt)", age:"(Lädt Alter)", password:""}]);
 
     useEffect(() => {
         Axios.post('http://localhost:3001/getUser', {
-          actualAccountKey: actualAccount,
+          actualAccountKey: URLKey,
         }).then((response) => {
         console.log("Front End: getSpecificUser: response Data: "+ response.data) 
         setUserData(response.data)
@@ -21,8 +26,8 @@ function Update() {
         
         });
     
-      },[actualAccount])
-  
+      },[URLKey])
+
   
   if (userData.length > 0){
     console.log(userData[0].name)
@@ -44,13 +49,11 @@ function Update() {
   console.log("hier ist der pw " + password + " hinterlegt")
   console.log("hier ist der Oldname " + oldName + " hinterlegt")
 
-  console.log("Der aktuelle Account ist:" + actualAccount)
-  
   
 
-  function handleSelectChange(event) {
-    setActualAccount(event.target.value);
-}
+  
+
+ 
 
 function handleSelectEmployer(event) {
     setEmployer(event.target.value);
@@ -62,10 +65,6 @@ const updateUser = () => {
 
   return (
     <>
-    <select value={actualAccount} onChange={handleSelectChange}>
-            <option value="Alfresco"> Alfresco</option>
-            <option value="Hanswurst">Ute</option>
-        </select>
     <h1>Update your Site</h1>
     <h1>
     {userData.map((value, key) => {

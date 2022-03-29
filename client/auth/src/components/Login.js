@@ -1,14 +1,42 @@
 import {useState} from "react";
 import Axios from "axios";
-import {useHistory,Link} from "react-router-dom";
+import {useHistory,Link, useParams} from "react-router-dom";
 
 function Login() {
 
   const [name,setName] = useState("");
   const [password,setPassword] = useState("");
   
+  let token = "";
+
+  const generateToken = () => {
+    const arr = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","!","$","€","%","/","(",")"]
+    
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+    
+    const randomNbr = getRandomInt(68); 
+    console.log(randomNbr);
 
 
+    for (let i = 0; i < 32; i++) {
+      const randomNbr = getRandomInt(68); 
+      console.log(randomNbr);
+      token = token + arr[randomNbr];
+    }
+    console.log("Das ist der String:" + token)
+    
+  }
+
+    let timeStamp ;
+
+    const generateTimeStamp = () => {
+    
+    timeStamp = Date.now();
+
+  }  
+  
   const checkCredentials = () => {
  
         Axios.post('http://localhost:3001/checkCredentials', {
@@ -25,9 +53,11 @@ function Login() {
           console.log("Du Schwachkopf!")
         }
         if (response.data[0].name === name){
-        setTimeout(() => { 
+
+          createToken();
+          setTimeout(() => { 
             routeTo();
-          },5000);  
+          },5000);
           }
           else{
             console.log("Es konnte nicht redirected werden!")
@@ -39,14 +69,14 @@ function Login() {
 
       const [loginState,setLoginState] = useState([{name: "Gast"}]);
 
+      let id = name;
+
       let history = useHistory();
 
       function routeTo() {
-        history.push("/update");
+        history.push("/update/?key=" + id);
       }
 
-
-      
       let loginMessage = "Keine Anmeldung vorhanden"
       switch (true){
         case (loginState[0].name === "Gast") :
@@ -62,6 +92,13 @@ function Login() {
           break;
       }
 
+
+      const createToken = () => {
+        generateToken();
+        generateTimeStamp();
+        Axios.put('http://localhost:3001/createToken', {nameKey: name, tokenKey: token, timeStampKey: timeStamp})
+      }
+      
       
   return (
     <>

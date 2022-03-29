@@ -13,7 +13,7 @@ app.use(express.json());
 
 const db = mysql.createPool({
     user: 'root',
-    host: '192.168.178.75', //Das ist die IP-Adresse der virtuellen Linux-Maschine MUSS evtl. geändert werden!!!
+    host: '192.168.178.53', //Das ist die IP-Adresse der virtuellen Linux-Maschine MUSS evtl. geändert werden!!!
     password: 'alfresco123', 
     database: 'userauth'
 });
@@ -67,6 +67,23 @@ app.put('/updateUser', (request, response) => {
     db.query
     ("UPDATE userlist SET name = ?, employer = ?, age = ?, password = ? WHERE name = ?",
     [id, employer, age, password, oldid],
+    (err, result) => {if (err)
+    {
+        console.log(err)
+    }else{
+        response.send(result);
+    }
+})
+})
+
+app.put('/createToken', (request, response) => {
+    const id = request.body.nameKey;
+    const timeStamp = request.body.timeStampKey;
+    const token = request.body.tokenKey;
+    console.log(id + " " + timeStamp + " " + token)
+    db.query
+    ("UPDATE userlist SET timestamp = ?, token = ? WHERE name = ?",
+    [timeStamp, token, id],
     (err, result) => {if (err)
     {
         console.log(err)
