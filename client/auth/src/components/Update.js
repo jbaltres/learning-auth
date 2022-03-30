@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
-
+import MyTimer from "./Timer";
 
 function Update() {
     //const [actualAccount,setActualAccount] = useState("Alfresco");
@@ -21,6 +21,7 @@ function Update() {
     const [token,setToken] = useState(userData[0].token);
     const [timeStamp,setTimeStamp] = useState(userData[0].timestamp);
     const [tokenverification, setTokenverification] = useState("");
+
     console.log("TOKEN vorher: " + token)
 
     useEffect(() => {
@@ -69,6 +70,18 @@ const updateUser = () => {
   Axios.put('http://localhost:3001/updateUser', {nameKey: name, selectedEmployerKey: employer, ageKey: age, passwordKey: password, oldNameKey: oldName})
 }
 
+
+
+var timestamp2 = parseInt(timeStamp)
+var date2 = new Date(timestamp2);
+console.log(date2.getTime() + "GetTime" )
+console.log(date2 + "date2")
+
+const timer = date2
+timer.setSeconds(timer.getSeconds() + 1800);
+console.log(timeStamp + " = TimeStamp aus Backend")
+console.log(timer + " = Timer")
+
 if (tokenverification === token) {
   console.log("Token ist gültig.")
   return (
@@ -87,7 +100,11 @@ if (tokenverification === token) {
         )
       })}    
     </h1>
- 
+      ---
+      <div>
+      <MyTimer expiryTimestamp={timer} />
+    </div>
+      ...
     <div className="App">
       <div className="Form">
       {userData.map((value, key) => {
