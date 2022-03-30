@@ -58,12 +58,15 @@ function Login() {
         if (response.data[0].name === name){
 
           createToken();
-          localStorage.setItem("key",JSON.stringify(token));
+          sessionStorage.setItem("key",JSON.stringify(token));
           console.log("Token da?: " + token)
-          localStorage.setItem("timeStamp", JSON.stringify(timeStamp));
+          sessionStorage.setItem("timeStamp", JSON.stringify(timeStamp));
           setTimeout(() => { 
             routeTo();
           },5000);
+          setTimeout(() => { 
+            Axios.put('http://localhost:3001/deleteToken', {nameKey: name, tokenKey: token, timeStampKey: timeStamp})
+          },1800000);
           }
           else{
             console.log("Es konnte nicht redirected werden!")

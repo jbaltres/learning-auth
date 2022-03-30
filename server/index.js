@@ -93,6 +93,23 @@ app.put('/createToken', (request, response) => {
 })
 })
 
+app.put('/deleteToken', (request, response) => {
+    const id = request.body.nameKey;
+    const timeStamp = request.body.timeStampKey;
+    let token = "";
+    console.log(id + " " + timeStamp + " " + token)
+    db.query
+    ("UPDATE userlist SET timestamp = ?, token = ? WHERE name = ?",
+    [timeStamp, token, id],
+    (err, result) => {if (err)
+    {
+        console.log(err)
+    }else{
+        response.send(result);
+    }
+})
+})
+
 app.post('/checkCredentials', (request, response) => {
     //Die Variable aus dem Front-End holen und in neuer Variable in Back-End speichern
     const savedName = request.body.nameKey
@@ -132,9 +149,9 @@ app.post('/getUser', (request, response) => {
     })
 
 app.delete('/delete/:id', (request, response) => {
-    console.log("Empfange ID: "+ request.params.id)
-    const id = request.params.id
-    db.query("Delete FROM rooms WHERE id = ?", id,  (err, result) => {
+    console.log("Empfange ID: "+ request.body.nameKey)
+    const name = request.body.nameKey
+    db.query("Delete FROM userlist WHERE name = ?", name,  (err, result) => {
         if (err)
         {
             console.log(err)

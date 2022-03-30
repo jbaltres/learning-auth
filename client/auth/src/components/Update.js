@@ -37,11 +37,11 @@ function Update() {
         setTimeStamp(response.data[0].timestamp)
         setToken(response.data[0].token)
         console.log(response.data[0].timestamp)
-        setTokenverification(JSON.parse(localStorage.getItem("key")));
+        setTokenverification(JSON.parse(sessionStorage.getItem("key")));
         console.log("Verification is: " + tokenverification)
         })
 
-      },[URLKey, tokenverification])
+      },[URLKey, tokenverification, token])
   
   if (userData.length > 0){
     console.log(userData[0].name)
@@ -94,7 +94,7 @@ if (tokenverification === token) {
         return(
         <h3 className="ListEntry" key={key}>Name: {value.name} </h3>
         )
-      })}    
+      })}   
       Ihr Neuer Username:
        <input className="Inputfield" type="text" value={name} onChange={(e) => {setName(e.target.value)}}></input>
         <h3>Arbeitgeber</h3>
